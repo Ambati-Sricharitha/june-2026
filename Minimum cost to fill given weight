@@ -1,0 +1,12 @@
+class Solution:
+    def minimumCost(self, cost, w):
+        INF=float('inf')
+        dp=[INF] * (w + 1)
+        dp[0]=0
+        for i in range(len(cost)):
+            if cost[i]!=-1:
+                weight=i+1
+                for j in range(weight,w+1):
+                    dp[j]=min(dp[j],dp[j-weight]+cost[i])
+        return dp[w] if dp[w] !=INF else -1
+        # code here
