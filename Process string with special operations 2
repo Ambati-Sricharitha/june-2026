@@ -1,0 +1,43 @@
+class Solution:
+    def processStr(self, s: str, k: int) -> str:
+        lengths = []
+        cur_len = 0
+
+        for ch in s:
+            if ch.isalpha():
+                cur_len += 1
+            elif ch == '#':
+                cur_len *= 2
+            elif ch == '%':
+                pass
+            elif ch == '*':
+                if cur_len > 0:
+                    cur_len -= 1
+
+            lengths.append(cur_len)
+
+        if k >= cur_len:
+            return '.'
+
+        rev = False
+
+        for i in range(len(s) - 1, -1, -1):
+            ch = s[i]
+            prev_len = lengths[i - 1] if i > 0 else 0
+
+            if ch.isalpha():
+                if k == prev_len:
+                    return ch
+
+            elif ch == '#':
+                if k >= prev_len:
+                    k -= prev_len
+
+            elif ch == '%':
+                k = prev_len - 1 - k
+                rev = not rev
+
+            elif ch == '*':
+                pass
+
+        return '.'
