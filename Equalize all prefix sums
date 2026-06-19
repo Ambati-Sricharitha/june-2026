@@ -1,0 +1,10 @@
+class Solution:
+    def optimalArray(self, arr):
+        n=len(arr)
+        ans=[0] * n
+        cost=0
+        for i in range(1,n):
+            cost+=arr[i]-arr[i//2]
+            ans[i]=cost
+        return ans
+        # code here
